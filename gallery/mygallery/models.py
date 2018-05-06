@@ -28,7 +28,7 @@ class Category(models.Model):
     def save_category(self):
         self.save()
     
-     @classmethod
+    @classmethod
     def update_category(cls,id,new_category):
         cls.objects.filter(id).update(location = new_category)
 
@@ -39,7 +39,7 @@ class Category(models.Model):
 
 
 class Image(models.Model):
-    image = models.CharField(max_length =30)
+    image = models.ImageField(upload_to = 'gallery/')
     image_url = models.TextField(blank = True)
     image_name = models.CharField(max_length =30)
     image_description = models.TextField()
@@ -56,16 +56,27 @@ class Image(models.Model):
    
     class Meta:
         ordering = ['image_name']
-    
     @classmethod
-    def get_photo_by_id(cls,id):
-        photos = cls.objects.get(id=id)
-        return photos
+    def image_list(cls):
+        
+        images = cls.objects.all()
+        return images
 
     @classmethod
-    def filter_photo_by_location(cls,image_location):
-        photos = cls.objects.filter(image_location)
-        return photos
+    def get_photo_by_id(cls,id):
+        images = cls.objects.get(id=id)
+        return images
+
+    @classmethod
+    def filter_photo_by_location(cls,filtered_location):
+        images = cls.objects.filter(image_location__icontains = filtered_location)
+        return images
+   
+    @classmethod
+    def search_by_category(cls,searched_category):
+        images = cls.objects.filter(image_category__icontains = searched_category)
+
+        return images
 
     @classmethod
     def update_image(cls,id,new_image_name):
@@ -75,4 +86,4 @@ class Image(models.Model):
     def delete_location(cls,id):
         cls.objects.filter(id).delete()
 
-       
+    
