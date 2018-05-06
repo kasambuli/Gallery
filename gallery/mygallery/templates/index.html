@@ -1,0 +1,21 @@
+{%extends 'base.html'%} {% block content %} {{ block.super}}
+
+<div class="container">
+
+    <!-- Looping through projects   -->
+    {% for image in images %}
+
+    <div class="row">
+
+        <!--Display news Article images  -->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <img src="{{image.image.url}}" class="img-responsive" alt="Image">
+        </div>
+
+        <h4 class="text-center"> {{ image.image_name }} </h4>
+        <h4 class="text-center"> {{ image.image_category }} </h4>
+        <h4 class="text-center"> {{ image.image_location }} </h4>
+
+
+    </div>
+</div>{% endfor %}{% endblock %}
