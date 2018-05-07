@@ -1,0 +1,21 @@
+{%extends 'base.html'%}{% load static %} {% block content %}
+<div class="container">
+
+
+    {% for locat in location %}
+    <div class="col-sm-6 col-md-3">
+        <img src="{{locat.image.url}}" class="img-responsive" alt="Image">
+    </div>
+    <div class="row">
+        <h2 class="text-center"><strong>{{ locat.image_name }} </strong></h2>
+
+        <p class="text-center"> {{ locat.image_description }} </p>
+
+        <p class="text-center"> Category: {{ locat.image_category }} </p>
+        <p class="text-center"> Location: {{ locat.image_location }} </p>
+
+
+    </div>
+
+
+    {% endfor %}{% endblock %}
