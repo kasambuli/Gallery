@@ -23,14 +23,14 @@ class Category(models.Model):
     category = models.CharField(max_length =30)
    
     def __str__(self):
-        return self.location
+        return self.category
 
     def save_category(self):
         self.save()
     
     @classmethod
     def update_category(cls,id,new_category):
-        cls.objects.filter(id).update(location = new_category)
+        cls.objects.filter(id).update(category = new_category)
 
     @classmethod
     def delete_category(cls,id):
@@ -48,14 +48,15 @@ class Image(models.Model):
 
 
     def __str__(self):
-        return self.location
+        return self.image_name
 
     def save_image(self):
         self.save()
 
    
     class Meta:
-        ordering = ['image_name']
+        ordering = ['image_name'] 
+        
     @classmethod
     def image_list(cls):
         
@@ -67,14 +68,10 @@ class Image(models.Model):
         images = cls.objects.get(id=id)
         return images
 
-    @classmethod
-    def filter_photo_by_location(cls,filtered_location):
-        images = cls.objects.filter(image_location__icontains = filtered_location)
-        return images
    
     @classmethod
     def search_by_category(cls,searched_category):
-        images = cls.objects.filter(image_category__icontains = searched_category)
+        images = cls.objects.filter(image_category__category__icontains = searched_category)
 
         return images
 
@@ -86,4 +83,16 @@ class Image(models.Model):
     def delete_location(cls,id):
         cls.objects.filter(id).delete()
 
-    
+    @classmethod
+    def Nairobi(cls):
+        nairobi=cls.objects.filter(image_location__location='Nairobi')
+        return nairobi
+
+    @classmethod
+    def Mombasa(cls):
+        mombasa = cls.objects.filter(image_location__location='Mombasa')
+        return mombasa
+    @classmethod
+    def Dubai(cls):
+        dubai = cls.objects.filter(image_location__location='Dubai')
+        return dubai
