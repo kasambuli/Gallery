@@ -76,6 +76,11 @@ class Image(models.Model):
         return images
 
     @classmethod
+    def filter_by_location(cls,searched_location):
+        images= cls.objects.filter(image_location__category__icontains= searched_location)
+        return images
+
+    @classmethod
     def update_image(cls,id,new_image_name):
         cls.objects.filter(id=id).update(image_name =new_image_name)
 
